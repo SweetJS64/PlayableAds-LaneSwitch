@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject LoseOverlay;
     [SerializeField] private Spawner Spawner;
     [SerializeField] private PlayerBossFight PlayerBossFight;
-    [SerializeField] private int HealthBoss = 300;
+    [SerializeField] private int BossHP = 300;
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
     
-    public int BossHealth => HealthBoss;
+    public int BossHealth => BossHP;
     
     private int _power;
     private float _timeLeft;
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         State = GameState.WaitingForTap;
         _timeLeft = RunDuration;
-        UpdatePower(0);
+        AddPower(0);
     }
 
     private void Update()
@@ -48,23 +48,39 @@ public class GameManager : MonoBehaviour
         if (State == GameState.Win || State == GameState.Lose)
             return;
 
-        if (State == GameState.WaitingForTap)
-        {
-            if (WasTap()) State = GameState.Running;
+        if (TryStartRun())
             return;
-        }
-        
-        _timeLeft -= Time.deltaTime;
-        if (_timeLeft <= 0f && State == GameState.Running)
-        {
-            _timeLeft = 0f;
-            State = GameState.Finishing;
-            Spawner?.SpawnFinish();
-        }
 
+        UpdateRunTimer();
     }
     
-    public void UpdatePower(int amount)
+    private void UpdateRunTimer()
+    {
+        if (State != GameState.Running)
+            return;
+
+        _timeLeft -= Time.deltaTime;
+
+        if (_timeLeft > 0f)
+            return;
+
+        _timeLeft = 0f;
+        State = GameState.Finishing;
+        Spawner?.SpawnFinish();
+    }
+    
+    private bool TryStartRun()
+    {
+        if (State != GameState.WaitingForTap)
+            return false;
+
+        if (WasTap())
+            State = GameState.Running;
+
+        return true;
+    }
+    
+    public void AddPower(int amount)
     {
         _power += amount;
         if (PowerText != null)
@@ -88,7 +104,7 @@ public class GameManager : MonoBehaviour
         if (State != GameState.BossFight)
             return;
 
-        if (_power >= HealthBoss)
+        if (_power >= BossHP)
             Win();
         else
             Lose();

@@ -78,7 +78,7 @@ public class PlayerLaneController : MonoBehaviour
         
         if (other.CompareTag(Tags.BuffPower))
         {
-            GameManager.Instance.UpdatePower(10);
+            GameManager.Instance.AddPower(10);
             var pooledObject = other.GetComponent<PooledObject>();
             pooledObject.ReturnToPool();
             return;
@@ -86,7 +86,7 @@ public class PlayerLaneController : MonoBehaviour
         
         if (other.CompareTag(Tags.DebuffPower))
         {
-            GameManager.Instance.UpdatePower(-10);
+            GameManager.Instance.AddPower(-10);
             var pooledObject = other.GetComponent<PooledObject>();
             pooledObject.ReturnToPool();
             return;

@@ -31,9 +31,9 @@ public class Spawner : MonoBehaviour
 
         if (_timer > 0f)
             return;
-
-        SpawnRow();
+        
         _timer = Interval;
+        SpawnRow();
     }
 
     private void SpawnRow()
@@ -41,32 +41,27 @@ public class Spawner : MonoBehaviour
         int buffLane;
 
         if (_lastBuffLane == -1)
-        {
             buffLane = Random.Range(0, 3);
-        }
         else
-        {
             buffLane = (_lastBuffLane + Random.Range(1, 3)) % 3;
-        }
 
         _lastBuffLane = buffLane;
 
         var obstacleLane = (buffLane + Random.Range(1, 3)) % 3;
         var debuffLane = 3 - buffLane - obstacleLane;
 
-        var buff = BuffPowerPool.Get();
-        buff.transform.position = new Vector3(_lanes[buffLane], SpawnY, SpawnZ);
-        buff.transform.rotation = Quaternion.identity;
-        
-        var obstacle = ObstaclePool.Get();
-        obstacle.transform.position = new Vector3(_lanes[obstacleLane], SpawnY, SpawnZ);
-        obstacle.transform.rotation = Quaternion.identity;
-
-        var debuff = DebuffPowerPool.Get();
-        debuff.transform.position = new Vector3(_lanes[debuffLane], SpawnY, SpawnZ);
-        debuff.transform.rotation = Quaternion.identity;
+        SpawnFromPool(ObstaclePool, obstacleLane);
+        SpawnFromPool(BuffPowerPool, buffLane);
+        SpawnFromPool(DebuffPowerPool, debuffLane);
     }
 
+    private void SpawnFromPool(ObjectPool pool, int laneIndex)
+    {
+        var obj = pool.Get();
+        obj.transform.position = new Vector3(_lanes[laneIndex], SpawnY, SpawnZ);
+        obj.transform.rotation = Quaternion.identity;
+    }
+    
     public void SpawnFinish()
     {
         var pos = new Vector3(0f, 0f, SpawnZ);
