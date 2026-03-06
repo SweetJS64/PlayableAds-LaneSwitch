@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 8998155906228632513, guid: 63b1baab085c9114c9127b1cd2d8b6ac, type: 3}
-  InitialSize: 10
+  InitialSize: 7
 --- !u!1 &802984306
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 509663548156298014, guid: 60e0b9fda10b2cc4c81ae076c2f4f50a, type: 3}
-  InitialSize: 10
+  InitialSize: 7
 --- !u!1 &1561545846
 GameObject:
   m_ObjectHideFlags: 0

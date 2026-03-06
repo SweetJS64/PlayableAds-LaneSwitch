@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MoveToPlayer : MonoBehaviour
 {
-    [SerializeField] private float Speed = 7f;
-    [SerializeField] private float DestroyZ = -5f;
+    [SerializeField] private MovementConfigSO MovementConfig;
 
     private PooledObject _pooledObject;
     
@@ -19,9 +18,10 @@ public class MoveToPlayer : MonoBehaviour
             GameManager.Instance.State == GameState.BossFight)
             return;
         
-        transform.Translate(Vector3.back * Speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.back * MovementConfig.MoveSpeed * Time.deltaTime, 
+            Space.World);
 
-        if (transform.position.z <= DestroyZ)
+        if (transform.position.z <= MovementConfig.DespawnZ)
             _pooledObject.ReturnToPool();
     }
 }
