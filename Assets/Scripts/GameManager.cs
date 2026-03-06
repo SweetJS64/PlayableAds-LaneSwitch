@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject WinOverlay;
     [SerializeField] private GameObject LoseOverlay;
     [SerializeField] private Spawner Spawner;
+    [SerializeField] private PlayerBossFight PlayerBossFight;
+   
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
@@ -69,10 +71,22 @@ public class GameManager : MonoBehaviour
         if (State != GameState.Finishing)
             return;
 
+        if (Spawner.CurrentBossTargetPos == null)
+            return;
+
         State = GameState.BossFight;
+        PlayerBossFight.BeginFight(Spawner.CurrentBossTargetPos);
     }
 
-    public void Win()
+    public void ResolveBossFight()
+    {
+        if (State != GameState.BossFight)
+            return;
+
+        Win();
+    }
+    
+    private void Win()
     {
         if (State == GameState.Win || State == GameState.Lose)
             return;

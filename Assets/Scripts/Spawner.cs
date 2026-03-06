@@ -13,6 +13,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float Interval = 0.9f;
 
     private float _timer;
+    
+    public Transform CurrentBossTargetPos { get; private set; }
 
     private void Update()
     {
@@ -38,6 +40,8 @@ public class Spawner : MonoBehaviour
     public void SpawnFinish()
     {
         var pos = new Vector3(0f, 0f, SpawnZ);
-        Instantiate(FinishPrefab, pos, Quaternion.identity);
+        var root = Instantiate(FinishPrefab, pos, Quaternion.identity);
+        var targetMarker = root.GetComponentInChildren<BossTargetPos>();
+        CurrentBossTargetPos = targetMarker != null ? targetMarker.transform : null;
     }
 }
