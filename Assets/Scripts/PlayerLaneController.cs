@@ -75,5 +75,19 @@ public class PlayerLaneController : MonoBehaviour
             GameManager.Instance.StartBossFight();
             return;
         }
+        
+        if (other.CompareTag(Tags.BuffPower))
+        {
+            GameManager.Instance.UpdatePower(10);
+            Destroy(other.gameObject);
+            return;
+        }
+        
+        if (other.CompareTag(Tags.DebuffPower))
+        {
+            GameManager.Instance.UpdatePower(-10);
+            Destroy(other.gameObject);
+            return;
+        }
     }
 }

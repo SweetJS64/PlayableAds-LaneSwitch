@@ -15,16 +15,16 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private float RunDuration = 30f;
-    [SerializeField] private TMP_Text TimerText;
+    [SerializeField] private TMP_Text PowerText;
     [SerializeField] private GameObject WinOverlay;
     [SerializeField] private GameObject LoseOverlay;
     [SerializeField] private Spawner Spawner;
     [SerializeField] private PlayerBossFight PlayerBossFight;
-   
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
-
+    
+    private int _power;
     private float _timeLeft;
     
     private void Awake()
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         State = GameState.WaitingForTap;
         _timeLeft = RunDuration;
+        UpdatePower(0);
     }
 
     private void Update()
@@ -66,6 +67,14 @@ public class GameManager : MonoBehaviour
 
     }
     
+    public void UpdatePower(int amount)
+    {
+        _power += amount;
+        if (PowerText != null)
+            PowerText.text = $"POWER: <color=blue>{_power}</color>";
+    }
+    
+    
     public void StartBossFight()
     {
         if (State != GameState.Finishing)
@@ -83,7 +92,10 @@ public class GameManager : MonoBehaviour
         if (State != GameState.BossFight)
             return;
 
-        Win();
+        if (_power >= 30)
+            Win();
+        else
+            Lose();
     }
     
     private void Win()
