@@ -17,6 +17,11 @@ public class PlayerLaneController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance != null && 
+            GameManager.Instance.State != GameState.Running &&
+            GameManager.Instance.State != GameState.Finishing)
+            return;
+        
         if (WasTap())
         {
             var clickX = Input.mousePosition.x;
@@ -42,7 +47,7 @@ public class PlayerLaneController : MonoBehaviour
 
         return false;
     }
-
+    
     private void SetTargetLane(int lane)
     {
         var targetX = (lane - 1) * LaneOffset;
@@ -53,5 +58,22 @@ public class PlayerLaneController : MonoBehaviour
     {
         SetTargetLane(lane);
         transform.position = _targetPos;
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (GameManager.Instance == null) return;
+        
+        if (other.CompareTag(Tags.Obstacle))
+        {
+            GameManager.Instance.Lose();
+            return;
+        }
+
+        if (other.CompareTag(Tags.Finish))
+        {
+            GameManager.Instance.StartBossFight();
+            return;
+        }
     }
 }
