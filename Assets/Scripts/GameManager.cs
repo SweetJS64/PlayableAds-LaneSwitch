@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
     
+    public int BossHealth => HealthBoss;
+    
     private int _power;
     private float _timeLeft;
     
@@ -48,11 +50,7 @@ public class GameManager : MonoBehaviour
 
         if (State == GameState.WaitingForTap)
         {
-            if (WasTap())
-            {
-                State = GameState.Running;
-                Debug.Log("START");
-            }
+            if (WasTap()) State = GameState.Running;
             return;
         }
         
@@ -62,8 +60,6 @@ public class GameManager : MonoBehaviour
             _timeLeft = 0f;
             State = GameState.Finishing;
             Spawner?.SpawnFinish();
-            
-            Debug.Log("FINISH REQUESTED");
         }
 
     }
@@ -107,8 +103,6 @@ public class GameManager : MonoBehaviour
 
         if (WinOverlay != null)
             WinOverlay.SetActive(true);
-
-        Debug.Log("WIN");
     }
     
     public void Lose()
@@ -120,8 +114,6 @@ public class GameManager : MonoBehaviour
         
         if (LoseOverlay != null)
             LoseOverlay.SetActive(true);
-        
-        Debug.Log("LOSE");
     }
 
     public void Replay()
@@ -136,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             return true;
-
+        
         return false;
     }
 }
