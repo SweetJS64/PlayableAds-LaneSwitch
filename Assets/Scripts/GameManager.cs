@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject LoseOverlay;
     [SerializeField] private Spawner Spawner;
     [SerializeField] private PlayerBossFight PlayerBossFight;
+    [SerializeField] private int HealthBoss = 300;
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
@@ -74,7 +75,6 @@ public class GameManager : MonoBehaviour
             PowerText.text = $"POWER: <color=blue>{_power}</color>";
     }
     
-    
     public void StartBossFight()
     {
         if (State != GameState.Finishing)
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         if (State != GameState.BossFight)
             return;
 
-        if (_power >= 30)
+        if (_power >= HealthBoss)
             Win();
         else
             Lose();
@@ -110,8 +110,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("WIN");
     }
-
-
     
     public void Lose()
     {

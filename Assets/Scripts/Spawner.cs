@@ -3,9 +3,9 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [Header("Prefabs")]
-    [SerializeField] private GameObject ObstaclePrefab;
-    [SerializeField] private GameObject BuffPowerPrefab;
-    [SerializeField] private GameObject DebuffPowerPrefab;
+    [SerializeField] private ObjectPool ObstaclePool;
+    [SerializeField] private ObjectPool BuffPowerPool;
+    [SerializeField] private ObjectPool DebuffPowerPool;
     [SerializeField] private GameObject FinishPrefab;
 
     [Header("Spawn settings")]
@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
 
     private float _timer;
     private readonly float[] _lanes = { -2f, 0f, 2f };
+    private int _lastObstacleLane = -1;
 
     public Transform CurrentBossTargetPos { get; private set; }
     
@@ -37,26 +38,33 @@ public class Spawner : MonoBehaviour
 
     private void SpawnRow()
     {
-        var obstacleLane = Random.Range(0, 3);
+        int obstacleLane;
 
-        int buffLane;
-        do
+        if (_lastObstacleLane == -1)
         {
-            buffLane = Random.Range(0, 3);
+            obstacleLane = Random.Range(0, 3);
         }
-        while (buffLane == obstacleLane);
+        else
+        {
+            obstacleLane = (_lastObstacleLane + Random.Range(1, 3)) % 3;
+        }
 
+        _lastObstacleLane = obstacleLane;
+
+        var buffLane = (obstacleLane + Random.Range(1, 3)) % 3;
         var debuffLane = 3 - obstacleLane - buffLane;
-        
-        var obstaclePos = new Vector3(_lanes[obstacleLane], SpawnY, SpawnZ);
-        Instantiate(ObstaclePrefab, obstaclePos, Quaternion.identity);
 
-        var buffPos = new Vector3(_lanes[buffLane], SpawnY, SpawnZ);
-        Instantiate(BuffPowerPrefab, buffPos, Quaternion.identity);
-        
-        var debuffPos = new Vector3(_lanes[debuffLane], SpawnY, SpawnZ);
-        Instantiate(DebuffPowerPrefab, debuffPos, Quaternion.identity);
+        var obstacle = ObstaclePool.Get();
+        obstacle.transform.position = new Vector3(_lanes[obstacleLane], SpawnY, SpawnZ);
+        obstacle.transform.rotation = Quaternion.identity;
 
+        var buff = BuffPowerPool.Get();
+        buff.transform.position = new Vector3(_lanes[buffLane], SpawnY, SpawnZ);
+        buff.transform.rotation = Quaternion.identity;
+
+        var debuff = DebuffPowerPool.Get();
+        debuff.transform.position = new Vector3(_lanes[debuffLane], SpawnY, SpawnZ);
+        debuff.transform.rotation = Quaternion.identity;
     }
 
     public void SpawnFinish()
