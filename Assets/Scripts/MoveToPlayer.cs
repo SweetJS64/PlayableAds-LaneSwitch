@@ -5,6 +5,13 @@ public class MoveToPlayer : MonoBehaviour
     [SerializeField] private float Speed = 7f;
     [SerializeField] private float DestroyZ = -5f;
 
+    private PooledObject _pooledObject;
+    
+    private void Awake()
+    {
+        _pooledObject = GetComponent<PooledObject>();
+    }
+    
     private void Update()
     {
         if (GameManager.Instance.State == GameState.Win ||
@@ -15,6 +22,6 @@ public class MoveToPlayer : MonoBehaviour
         transform.Translate(Vector3.back * Speed * Time.deltaTime, Space.World);
 
         if (transform.position.z <= DestroyZ)
-            Destroy(gameObject);
+            _pooledObject.ReturnToPool();
     }
 }

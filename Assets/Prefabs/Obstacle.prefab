@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3656623341045541513}
   - component: {fileID: 3721680589218336974}
   - component: {fileID: 5355919210124712004}
+  - component: {fileID: 4557831694536536845}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Obstacle
@@ -120,3 +121,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 7
   DestroyZ: -5
+--- !u!114 &4557831694536536845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509663548156298014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5d8e6877f095545831432255136e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
