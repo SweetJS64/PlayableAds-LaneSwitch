@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
 
     private float _timer;
     private readonly float[] _lanes = { -2f, 0f, 2f };
-    private int _lastObstacleLane = -1;
+    private int _lastBuffLane = -1;
 
     public Transform CurrentBossTargetPos { get; private set; }
     
@@ -38,29 +38,29 @@ public class Spawner : MonoBehaviour
 
     private void SpawnRow()
     {
-        int obstacleLane;
+        int buffLane;
 
-        if (_lastObstacleLane == -1)
+        if (_lastBuffLane == -1)
         {
-            obstacleLane = Random.Range(0, 3);
+            buffLane = Random.Range(0, 3);
         }
         else
         {
-            obstacleLane = (_lastObstacleLane + Random.Range(1, 3)) % 3;
+            buffLane = (_lastBuffLane + Random.Range(1, 3)) % 3;
         }
 
-        _lastObstacleLane = obstacleLane;
+        _lastBuffLane = buffLane;
 
-        var buffLane = (obstacleLane + Random.Range(1, 3)) % 3;
-        var debuffLane = 3 - obstacleLane - buffLane;
-
-        var obstacle = ObstaclePool.Get();
-        obstacle.transform.position = new Vector3(_lanes[obstacleLane], SpawnY, SpawnZ);
-        obstacle.transform.rotation = Quaternion.identity;
+        var obstacleLane = (buffLane + Random.Range(1, 3)) % 3;
+        var debuffLane = 3 - buffLane - obstacleLane;
 
         var buff = BuffPowerPool.Get();
         buff.transform.position = new Vector3(_lanes[buffLane], SpawnY, SpawnZ);
         buff.transform.rotation = Quaternion.identity;
+        
+        var obstacle = ObstaclePool.Get();
+        obstacle.transform.position = new Vector3(_lanes[obstacleLane], SpawnY, SpawnZ);
+        obstacle.transform.rotation = Quaternion.identity;
 
         var debuff = DebuffPowerPool.Get();
         debuff.transform.position = new Vector3(_lanes[debuffLane], SpawnY, SpawnZ);
