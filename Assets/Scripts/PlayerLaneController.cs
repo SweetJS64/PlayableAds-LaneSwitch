@@ -8,9 +8,11 @@ public class PlayerLaneController : MonoBehaviour
     
     private int _laneIndex = 1;
     private Vector3 _targetPos;
+    private Camera _camera;
 
     private void Start()
     {
+        _camera = Camera.main;
         _targetPos = transform.position;
         SnapToLane(_laneIndex);
     }
@@ -25,7 +27,7 @@ public class PlayerLaneController : MonoBehaviour
         if (WasTap())
         {
             var clickX = Input.mousePosition.x;
-            var playerX = Camera.main.WorldToScreenPoint(transform.position).x;
+            var playerX = _camera.WorldToScreenPoint(transform.position).x;
             var isTapLeft = clickX < playerX;
 
             _laneIndex += isTapLeft ? -1 : 1;
@@ -33,7 +35,7 @@ public class PlayerLaneController : MonoBehaviour
 
             SetTargetLane(_laneIndex);
         }
-
+        //Debug.Log($"LaneController Update, State={GameManager.Instance.State}");
         transform.position = Vector3.Lerp(transform.position, _targetPos, LaneChangeSpeed * Time.deltaTime);
     }
 
@@ -72,6 +74,7 @@ public class PlayerLaneController : MonoBehaviour
 
         if (other.CompareTag(Tags.Finish))
         {
+            //Debug.Log($"Hit Finish! State = {GameManager.Instance.State}");
             GameManager.Instance.StartBossFight();
             return;
         }

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Spawner Spawner;
     [SerializeField] private PlayerBossFight PlayerBossFight;
     [SerializeField] private int BossHP = 300;
+    [SerializeField] private PlayerAnimationController PlayerAnimationController;
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
@@ -75,8 +76,11 @@ public class GameManager : MonoBehaviour
             return false;
 
         if (WasTap())
+        {
             State = GameState.Running;
-
+            PlayerAnimationController.PlayRun();
+        }
+        
         return true;
     }
     
@@ -91,9 +95,14 @@ public class GameManager : MonoBehaviour
     {
         if (State != GameState.Finishing)
             return;
+        
+        //Debug.Log($"StartBossFight called. BossTargetPos = {Spawner.CurrentBossTargetPos}");
 
         if (Spawner.CurrentBossTargetPos == null)
+        {
+            //Debug.Log("BossTargetPos is NULL — выход!");
             return;
+        }
 
         State = GameState.BossFight;
         PlayerBossFight.BeginFight(Spawner.CurrentBossTargetPos);
@@ -117,6 +126,8 @@ public class GameManager : MonoBehaviour
         
         State = GameState.Win;
 
+        PlayerAnimationController.PlayDance();
+        
         if (WinOverlay != null)
             WinOverlay.SetActive(true);
     }
@@ -127,6 +138,8 @@ public class GameManager : MonoBehaviour
             return;
 
         State = GameState.Lose;
+        
+        PlayerAnimationController.PlayLose();
         
         if (LoseOverlay != null)
             LoseOverlay.SetActive(true);

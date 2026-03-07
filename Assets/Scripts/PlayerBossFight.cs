@@ -13,16 +13,25 @@ public class PlayerBossFight : MonoBehaviour
     {
         _target = target;
         _isActive = _target != null;
+        Debug.Log($"BeginFight! target={_target.position}, _isActive={_isActive}");
     }
 
     private void Update()
     {
         if (!_isActive)
             return;
-
+        Debug.Log("isActive");
         if (GameManager.Instance == null || GameManager.Instance.State != GameState.BossFight)
+        {
+            Debug.Log($"BossFight Update blocked. State={GameManager.Instance?.State}");
             return;
-
+        }
+        
+        var dist = Vector3.Distance(transform.position, _target.position);
+        Debug.Log($"BossFight moving. dist={dist}, pos={transform.position}");
+        
+        
+        
         var direction = _target.position - transform.position;
         direction.y = 0f;
 
@@ -41,13 +50,13 @@ public class PlayerBossFight : MonoBehaviour
             _target.position,
             MoveSpeed * Time.deltaTime
         );
-
-        
         
         if (Vector3.Distance(transform.position, _target.position) <= ReachDistance)
         {
             _isActive = false;
             GameManager.Instance.ResolveBossFight();
         }
+        
+        
     }
 }
