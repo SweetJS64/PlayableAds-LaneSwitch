@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -17,12 +19,22 @@ public class PlayerAnimationController : MonoBehaviour
         Animator.SetTrigger(RunHash);
     }
     
-    public void PlayAttack()
+    public void PlayAttack(Action onComplete = null)
+    {
+        StartCoroutine(PlayAndWait(AttackHash, onComplete));
+    }
+
+    private IEnumerator PlayAndWait(int triggerHash, System.Action onComplete)
     {
         Animator.ResetTrigger(RunHash);
         Animator.ResetTrigger(LoseHash);
         Animator.ResetTrigger(DanceHash);
-        Animator.SetTrigger(AttackHash);
+        Animator.SetTrigger(triggerHash);
+    
+        var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
+    
+        onComplete?.Invoke();
     }
 
     public void PlayLose()

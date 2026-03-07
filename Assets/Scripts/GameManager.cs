@@ -96,13 +96,8 @@ public class GameManager : MonoBehaviour
         if (State != GameState.Finishing)
             return;
         
-        //Debug.Log($"StartBossFight called. BossTargetPos = {Spawner.CurrentBossTargetPos}");
-
         if (Spawner.CurrentBossTargetPos == null)
-        {
-            //Debug.Log("BossTargetPos is NULL — выход!");
             return;
-        }
 
         State = GameState.BossFight;
         PlayerBossFight.BeginFight(Spawner.CurrentBossTargetPos);
@@ -114,22 +109,20 @@ public class GameManager : MonoBehaviour
             return;
 
         if (_power >= BossHP)
-            Win();
+            WinSequence();
         else
             Lose();
     }
-    
-    private void Win()
-    {
-        if (State == GameState.Win || State == GameState.Lose)
-            return;
-        
-        State = GameState.Win;
 
-        PlayerAnimationController.PlayDance();
-        
-        if (WinOverlay != null)
-            WinOverlay.SetActive(true);
+    private void WinSequence()
+    {
+        State = GameState.Win;
+    
+        PlayerAnimationController.PlayAttack(onComplete: () =>
+        {
+            WinOverlay?.SetActive(true);
+            PlayerAnimationController.PlayDance();
+        });
     }
     
     public void Lose()

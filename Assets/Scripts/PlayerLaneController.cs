@@ -35,7 +35,6 @@ public class PlayerLaneController : MonoBehaviour
 
             SetTargetLane(_laneIndex);
         }
-        //Debug.Log($"LaneController Update, State={GameManager.Instance.State}");
         transform.position = Vector3.Lerp(transform.position, _targetPos, LaneChangeSpeed * Time.deltaTime);
     }
 
@@ -74,7 +73,6 @@ public class PlayerLaneController : MonoBehaviour
 
         if (other.CompareTag(Tags.Finish))
         {
-            //Debug.Log($"Hit Finish! State = {GameManager.Instance.State}");
             GameManager.Instance.StartBossFight();
             return;
         }
