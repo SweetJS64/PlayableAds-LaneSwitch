@@ -10,13 +10,42 @@ public class PlayerAnimationController : MonoBehaviour
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int LoseHash = Animator.StringToHash("Lose");
     private static readonly int DanceHash = Animator.StringToHash("Dance");
+    private static readonly int IdleHash = Animator.StringToHash("Idle");
 
     public void PlayRun()
     {
         Animator.ResetTrigger(AttackHash);
         Animator.ResetTrigger(LoseHash);
         Animator.ResetTrigger(DanceHash);
+        Animator.ResetTrigger(IdleHash);
         Animator.SetTrigger(RunHash);
+    }
+    
+    public void PlayLose()
+    {
+        Animator.ResetTrigger(RunHash);
+        Animator.ResetTrigger(AttackHash);
+        Animator.ResetTrigger(DanceHash);
+        Animator.ResetTrigger(IdleHash);
+        Animator.SetTrigger(LoseHash);
+    }
+
+    public void PlayDance()
+    {
+        Animator.ResetTrigger(RunHash);
+        Animator.ResetTrigger(AttackHash);
+        Animator.ResetTrigger(LoseHash);
+        Animator.ResetTrigger(IdleHash);
+        Animator.SetTrigger(DanceHash);
+    }
+    
+    public void PlayIdle()
+    {
+        Animator.ResetTrigger(RunHash);
+        Animator.ResetTrigger(AttackHash);
+        Animator.ResetTrigger(LoseHash);
+        Animator.ResetTrigger(DanceHash);
+        Animator.SetTrigger(IdleHash);
     }
     
     public void PlayAttack(Action onComplete = null)
@@ -29,27 +58,12 @@ public class PlayerAnimationController : MonoBehaviour
         Animator.ResetTrigger(RunHash);
         Animator.ResetTrigger(LoseHash);
         Animator.ResetTrigger(DanceHash);
+        Animator.ResetTrigger(IdleHash);
         Animator.SetTrigger(triggerHash);
     
         var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length);
     
         onComplete?.Invoke();
-    }
-
-    public void PlayLose()
-    {
-        Animator.ResetTrigger(RunHash);
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(DanceHash);
-        Animator.SetTrigger(LoseHash);
-    }
-
-    public void PlayDance()
-    {
-        Animator.ResetTrigger(RunHash);
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(LoseHash);
-        Animator.SetTrigger(DanceHash);
     }
 }
