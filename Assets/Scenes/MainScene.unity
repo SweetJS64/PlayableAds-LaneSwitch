@@ -271,13 +271,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd86d520be9019c45925b0cef1175f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunDuration: 2
+  RunDuration: 30
   PowerText: {fileID: 1574182689}
   WinOverlay: {fileID: 1307049832}
   LoseOverlay: {fileID: 1789488980}
   Spawner: {fileID: 2093967198}
   PlayerBossFight: {fileID: 2097314795}
-  BossHP: 10
+  BossHP: 30
   PlayerAnimationController: {fileID: 2097314794}
 --- !u!1 &241072132
 GameObject:
