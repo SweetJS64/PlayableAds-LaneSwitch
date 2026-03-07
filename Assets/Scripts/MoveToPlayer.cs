@@ -13,6 +13,9 @@ public class MoveToPlayer : MonoBehaviour
     
     private void Update()
     {
+        if (GameManager.Instance == null)
+            return;
+
         if (GameManager.Instance.State == GameState.Win ||
             GameManager.Instance.State == GameState.Lose ||
             GameManager.Instance.State == GameState.BossFight)
