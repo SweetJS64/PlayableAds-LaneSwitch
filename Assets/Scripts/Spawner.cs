@@ -18,6 +18,7 @@ public class Spawner : MonoBehaviour
     private int _lastBuffLane = -1;
 
     public Transform CurrentBossTargetPos { get; private set; }
+    public BossAnimationController BossAnimationController { get; private set; }
     
     private void Update()
     {
@@ -68,5 +69,6 @@ public class Spawner : MonoBehaviour
         var root = Instantiate(FinishPrefab, pos, Quaternion.identity);
         var targetMarker = root.GetComponentInChildren<BossTargetPos>();
         CurrentBossTargetPos = targetMarker != null ? targetMarker.transform : null;
+        BossAnimationController = root.GetComponentInChildren<BossAnimationController>();
     }
 }

@@ -2387,6 +2387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8862378351029123481}
   - component: {fileID: 3178788116753163235}
+  - component: {fileID: 6378889619653461724}
   m_Layer: 0
   m_Name: BossBot
   m_TagString: Untagged
@@ -2434,6 +2435,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6378889619653461724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8193928485623014179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69174ab58c8dae409059db1af8169c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 3178788116753163235}
 --- !u!1 &8246873520901079160
 GameObject:
   m_ObjectHideFlags: 0
