@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     
     private int _power;
     private float _timeLeft;
+    private BossAnimationController _bossAnimationController;
     
     private void Awake()
     {
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         _timeLeft = 0f;
         State = GameState.Finishing;
         Spawner?.SpawnFinish();
+        _bossAnimationController = Spawner?.BossAnimationController;
     }
     
     private bool TryStartRun()
@@ -121,6 +123,7 @@ public class GameManager : MonoBehaviour
         PlayerAnimationController.PlayAttack(onComplete: () =>
         {
             WinOverlay?.SetActive(true);
+            _bossAnimationController?.PlayLose();
             PlayerAnimationController.PlayDance();
         });
     }
@@ -132,6 +135,7 @@ public class GameManager : MonoBehaviour
 
         State = GameState.Lose;
         
+        _bossAnimationController?.PlayAttack();
         PlayerAnimationController.PlayLose();
         
         if (LoseOverlay != null)
