@@ -24,9 +24,8 @@ public class PlayerLaneController : MonoBehaviour
             GameManager.Instance.State != GameState.Finishing)
             return;
         
-        if (WasTap())
+        if (InputHelper.WasTap(out var clickX))
         {
-            var clickX = Input.mousePosition.x;
             var playerX = _camera.WorldToScreenPoint(transform.position).x;
             var isTapLeft = clickX < playerX;
 
@@ -38,17 +37,6 @@ public class PlayerLaneController : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, _targetPos, LaneChangeSpeed * Time.deltaTime);
     }
 
-    private bool WasTap()
-    {
-        if (Input.GetMouseButtonDown(0))
-            return true;
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            return true;
-
-        return false;
-    }
-    
     private void SetTargetLane(int lane)
     {
         var targetX = (lane - 1) * LaneOffset;

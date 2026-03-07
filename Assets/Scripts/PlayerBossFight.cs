@@ -20,7 +20,7 @@ public class PlayerBossFight : MonoBehaviour
         if (!_isActive)
             return;
 
-        if (GameManager.Instance == null || GameManager.Instance.State != GameState.BossFight)
+        if (GameManager.Instance.State != GameState.BossFight)
             return;
 
         var direction = _target.position - transform.position;

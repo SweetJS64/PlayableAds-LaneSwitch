@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         if (State != GameState.WaitingForTap)
             return false;
 
-        if (WasTap())
+        if (InputHelper.WasTap())
         {
             State = GameState.Running;
             PlayerAnimationController.PlayRun();
@@ -113,7 +113,23 @@ public class GameManager : MonoBehaviour
         if (_power >= BossHP)
             WinSequence();
         else
-            Lose();
+            LoseToBoss();
+    }
+
+    private void LoseToBoss()
+    {
+        State = GameState.Lose;
+        PlayerAnimationController.PlayIdle();
+        _bossAnimationController?.PlayAttack(onHit: Lose);
+    }
+    
+    public void Lose()
+    {
+        State = GameState.Lose;
+        PlayerAnimationController.PlayLose();
+        
+        if (LoseOverlay != null)
+            LoseOverlay.SetActive(true);
     }
 
     private void WinSequence()
@@ -128,33 +144,9 @@ public class GameManager : MonoBehaviour
         });
     }
     
-    public void Lose()
-    {
-        if (State == GameState.Win || State == GameState.Lose)
-            return;
-
-        State = GameState.Lose;
-        
-        _bossAnimationController?.PlayAttack();
-        PlayerAnimationController.PlayLose();
-        
-        if (LoseOverlay != null)
-            LoseOverlay.SetActive(true);
-    }
-
     public void Replay()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private bool WasTap()
-    {
-        if (Input.GetMouseButtonDown(0))
-            return true;
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            return true;
-        
-        return false;
-    }
 }
