@@ -1,11 +1,8 @@
 using UnityEngine;
 using System;
-using System.Collections;
 
-public class BossAnimationController : MonoBehaviour
+public class BossAnimationController : AnimationControllerBase
 {
-    [SerializeField] private Animator Animator;
-
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int LoseHash = Animator.StringToHash("Lose");
 
@@ -26,17 +23,7 @@ public class BossAnimationController : MonoBehaviour
 
     public void PlayLose(Action onComplete = null)
     {
-        StartCoroutine(PlayAndWait(LoseHash, onComplete));
-    }
-
-    private IEnumerator PlayAndWait(int triggerHash, Action onComplete)
-    {
         Animator.ResetTrigger(AttackHash);
-        Animator.SetTrigger(triggerHash);
-
-        var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(stateInfo.length);
-
-        onComplete?.Invoke();
+        StartCoroutine(PlayAndWait(LoseHash, onComplete));
     }
 }

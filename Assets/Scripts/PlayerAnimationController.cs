@@ -1,11 +1,9 @@
 using UnityEngine;
 using System;
-using System.Collections;
 
-public class PlayerAnimationController : MonoBehaviour
+public class PlayerAnimationController : AnimationControllerBase
 {
-    [SerializeField] private Animator Animator;
-    
+
     private static readonly int RunHash = Animator.StringToHash("Run");
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int LoseHash = Animator.StringToHash("Lose");
@@ -14,56 +12,40 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void PlayRun()
     {
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(LoseHash);
-        Animator.ResetTrigger(DanceHash);
-        Animator.ResetTrigger(IdleHash);
+        ResetAllTriggers();
         Animator.SetTrigger(RunHash);
     }
     
     public void PlayLose()
     {
-        Animator.ResetTrigger(RunHash);
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(DanceHash);
-        Animator.ResetTrigger(IdleHash);
+        ResetAllTriggers();
         Animator.SetTrigger(LoseHash);
     }
 
     public void PlayDance()
     {
-        Animator.ResetTrigger(RunHash);
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(LoseHash);
-        Animator.ResetTrigger(IdleHash);
+        ResetAllTriggers();
         Animator.SetTrigger(DanceHash);
     }
     
     public void PlayIdle()
     {
-        Animator.ResetTrigger(RunHash);
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(LoseHash);
-        Animator.ResetTrigger(DanceHash);
+        ResetAllTriggers();
         Animator.SetTrigger(IdleHash);
     }
     
     public void PlayAttack(Action onComplete = null)
     {
+        ResetAllTriggers();
         StartCoroutine(PlayAndWait(AttackHash, onComplete));
     }
 
-    private IEnumerator PlayAndWait(int triggerHash, System.Action onComplete)
+    private void ResetAllTriggers()
     {
         Animator.ResetTrigger(RunHash);
+        Animator.ResetTrigger(AttackHash);
         Animator.ResetTrigger(LoseHash);
         Animator.ResetTrigger(DanceHash);
         Animator.ResetTrigger(IdleHash);
-        Animator.SetTrigger(triggerHash);
-    
-        var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
-        yield return new WaitForSeconds(stateInfo.length);
-    
-        onComplete?.Invoke();
     }
 }
