@@ -116,18 +116,34 @@ public class GameManager : MonoBehaviour
             LoseToBoss();
     }
 
+    public void LoseToObstacle()
+    {
+        if (State == GameState.Win || State == GameState.Lose)
+            return;
+
+        State = GameState.Lose;
+        PlayerAnimationController.PlayLose();
+        _bossAnimationController?.PlayDance();
+
+        if (LoseOverlay != null)
+            LoseOverlay.SetActive(true);
+    }
+
     private void LoseToBoss()
     {
         State = GameState.Lose;
         PlayerAnimationController.PlayIdle();
-        _bossAnimationController?.PlayAttack(onHit: Lose);
+
+        if (_bossAnimationController != null)
+            _bossAnimationController.PlayAttack(onHit: ShowLose);
+        else
+            ShowLose();
     }
-    
-    public void Lose()
+
+    private void ShowLose()
     {
-        State = GameState.Lose;
         PlayerAnimationController.PlayLose();
-        
+
         if (LoseOverlay != null)
             LoseOverlay.SetActive(true);
     }

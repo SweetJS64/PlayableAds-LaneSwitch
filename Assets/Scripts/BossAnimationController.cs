@@ -5,6 +5,7 @@ public class BossAnimationController : AnimationControllerBase
 {
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int LoseHash = Animator.StringToHash("Lose");
+    private static readonly int DanceHash = Animator.StringToHash("Dance");
 
     private Action _onHitCallback;
 
@@ -19,6 +20,13 @@ public class BossAnimationController : AnimationControllerBase
     {
         _onHitCallback?.Invoke();
         _onHitCallback = null;
+    }
+
+    public void PlayDance()
+    {
+        Animator.ResetTrigger(AttackHash);
+        Animator.ResetTrigger(LoseHash);
+        Animator.SetTrigger(DanceHash);
     }
 
     public void PlayLose(Action onComplete = null)

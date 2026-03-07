@@ -55,7 +55,7 @@ public class PlayerLaneController : MonoBehaviour
         
         if (other.CompareTag(Tags.Obstacle))
         {
-            GameManager.Instance.Lose();
+            GameManager.Instance.LoseToObstacle();
             return;
         }
 
