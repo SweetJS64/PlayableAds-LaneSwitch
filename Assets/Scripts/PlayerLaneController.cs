@@ -9,6 +9,7 @@ public class PlayerLaneController : MonoBehaviour
     private int _laneIndex = 1;
     private Vector3 _targetPos;
     private Camera _camera;
+    private bool _inputReady;
 
     private void Start()
     {
@@ -19,11 +20,22 @@ public class PlayerLaneController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance != null && 
-            GameManager.Instance.State != GameState.Running &&
-            GameManager.Instance.State != GameState.Finishing)
+        if (GameManager.Instance == null) return;
+
+        var state = GameManager.Instance.State;
+
+        if (state != GameState.Running && state != GameState.Finishing)
+        {
+            _inputReady = false;
             return;
-        
+        }
+
+        if (!_inputReady)
+        {
+            _inputReady = true;
+            return;
+        }
+
         if (InputHelper.WasTap(out var clickX))
         {
             var playerX = _camera.WorldToScreenPoint(transform.position).x;
