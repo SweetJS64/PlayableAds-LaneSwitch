@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerBossFight PlayerBossFight;
     [SerializeField] private int BossHP = 300;
     [SerializeField] private PlayerAnimationController PlayerAnimationController;
+    [SerializeField] private GameObject TapToStartText;
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour
         {
             State = GameState.Running;
             PlayerAnimationController.PlayRun();
+            TapToStartText?.SetActive(false);
         }
         
         return true;
