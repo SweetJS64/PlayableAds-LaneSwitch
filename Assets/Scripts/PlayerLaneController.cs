@@ -5,9 +5,12 @@ public class PlayerLaneController : MonoBehaviour
     [Header("Lane Settings")]
     [SerializeField] private float LaneOffset = 2f;
     [SerializeField] private float LaneChangeSpeed = 6f;
-    
+    [SerializeField] private float TiltAngle = 30f;
+    [SerializeField] private float TiltSpeed = 10f;
+
     private int _laneIndex = 1;
     private Vector3 _targetPos;
+    private float _targetTilt;
     private Camera _camera;
     private bool _inputReady;
 
@@ -45,8 +48,15 @@ public class PlayerLaneController : MonoBehaviour
             _laneIndex = Mathf.Clamp(_laneIndex, 0, 2);
 
             SetTargetLane(_laneIndex);
+            _targetTilt = isTapLeft ? -TiltAngle : TiltAngle;
         }
+
+        if (Mathf.Abs(transform.position.x - _targetPos.x) < 0.5f)
+            _targetTilt = 0f;
+
         transform.position = Vector3.Lerp(transform.position, _targetPos, LaneChangeSpeed * Time.deltaTime);
+        var newY = Mathf.LerpAngle(transform.eulerAngles.y, _targetTilt, TiltSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0f, newY, 0f);
     }
 
     private void SetTargetLane(int lane)

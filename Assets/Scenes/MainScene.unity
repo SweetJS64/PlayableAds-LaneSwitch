@@ -2194,7 +2194,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LaneOffset: 2
-  LaneChangeSpeed: 6
+  LaneChangeSpeed: 2
+  TiltAngle: 20
+  TiltSpeed: 10
 --- !u!54 &2097314797
 Rigidbody:
   m_ObjectHideFlags: 0
