@@ -17,12 +17,18 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float Interval = 0.9f;
 
     private float _timer;
-    private readonly float[] _lanes = { -2f, 0f, 2f };
+    private float[] _lanes;
     private int _lastBuffLane = -1;
 
     public Transform CurrentBossTargetPos { get; private set; }
     public BossAnimationController BossAnimationController { get; private set; }
-    
+
+    private void Awake()
+    {
+        var offset = MovementConfig.LaneOffset;
+        _lanes = new[] { -offset, 0f, offset };
+    }
+
     private void Update()
     {
         if (GameManager.Instance == null)

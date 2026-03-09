@@ -2,16 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public enum GameState
-{
-    WaitingForTap,
-    Running,
-    Finishing,
-    BossFight,
-    Win,
-    Lose
-}
-
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private float RunDuration = 30f;

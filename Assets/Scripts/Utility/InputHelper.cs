@@ -4,7 +4,7 @@ public static class InputHelper
 {
     private static bool _touchWasUsed;
 
-    [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
     {
         _touchWasUsed = false;

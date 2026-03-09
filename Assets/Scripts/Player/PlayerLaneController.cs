@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerLaneController : MonoBehaviour
 {
     [Header("Lane Settings")]
-    [SerializeField] private float LaneOffset = 2f;
+    [SerializeField] private MovementConfigSO MovementConfig;
     [SerializeField] private float LaneChangeSpeed = 6f;
     [SerializeField] private float TiltAngle = 30f;
     [SerializeField] private float TiltSpeed = 10f;
@@ -61,7 +61,7 @@ public class PlayerLaneController : MonoBehaviour
 
     private void SetTargetLane(int lane)
     {
-        var targetX = (lane - 1) * LaneOffset;
+        var targetX = (lane - 1) * MovementConfig.LaneOffset;
         _targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
     }
 

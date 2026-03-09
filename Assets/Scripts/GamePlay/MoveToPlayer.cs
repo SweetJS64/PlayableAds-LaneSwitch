@@ -16,10 +16,8 @@ public class MoveToPlayer : MonoBehaviour
         if (GameManager.Instance == null)
             return;
 
-        if (GameManager.Instance.State == GameState.WaitingForTap ||
-            GameManager.Instance.State == GameState.Win ||
-            GameManager.Instance.State == GameState.Lose ||
-            GameManager.Instance.State == GameState.BossFight)
+        if (GameManager.Instance.State != GameState.Running &&
+            GameManager.Instance.State != GameState.Finishing)
             return;
         
         transform.Translate(Vector3.back * MovementConfig.MoveSpeed * Time.deltaTime, 

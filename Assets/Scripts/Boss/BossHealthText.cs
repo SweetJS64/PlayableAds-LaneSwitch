@@ -45,12 +45,4 @@ public class BossHealthText : MonoBehaviour
         Text.text = $"HEALTH: {Mathf.RoundToInt(_displayedHealth)}";
     }
 
-    public void Refresh()
-    {
-        if (GameManager.Instance == null)
-            return;
-
-        _displayedHealth = GameManager.Instance.BossHealth;
-        UpdateText();
-    }
 }
