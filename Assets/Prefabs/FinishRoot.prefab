@@ -205,6 +205,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6471560940768226307}
     m_Modifications:
+    - target: {fileID: 1777475020493456124, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 5593604213018129494, guid: c0cb533eac622f94db47ee179b8c3e1a, type: 2}
+    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
+      propertyPath: m_fontSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c0cb533eac622f94db47ee179b8c3e1a, type: 2}
+    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5593604213018129494, guid: c0cb533eac622f94db47ee179b8c3e1a, type: 2}
+    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8193928485623014179, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
       propertyPath: m_Name
       value: BossBot
