@@ -4,15 +4,20 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float RunDuration = 30f;
-    [SerializeField] private TMP_Text PowerText;
-    [SerializeField] private GameObject WinOverlay;
-    [SerializeField] private GameObject LoseOverlay;
-    [SerializeField] private Spawner Spawner;
-    [SerializeField] private PlayerBossFight PlayerBossFight;
-    [SerializeField] private int BossHP = 300;
-    [SerializeField] private PlayerAnimationController PlayerAnimationController;
-    [SerializeField] private GameObject TapToStartText;
+    [Header("Settings")]
+    [SerializeField] private float _runDuration = 30f;
+    [SerializeField] private int _bossHP = 300;
+
+    [Header("UI")]
+    [SerializeField] private TMP_Text _powerText;
+    [SerializeField] private GameObject _winOverlay;
+    [SerializeField] private GameObject _loseOverlay;
+    [SerializeField] private GameObject _tapToStartText;
+
+    [Header("References")]
+    [SerializeField] private Spawner _spawner;
+    [SerializeField] private PlayerBossFight _playerBossFight;
+    [SerializeField] private PlayerAnimationController _playerAnimationController;
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
@@ -31,14 +36,14 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         State = GameState.WaitingForTap;
-        _timeLeft = RunDuration;
-        BossHealth = BossHP;
+        _timeLeft = _runDuration;
+        BossHealth = _bossHP;
         AddPower(0);
     }
 
     private void Start()
     {
-        Spawner?.PreSpawnRows(3);
+        _spawner?.PreSpawnRows(3);
     }
 
     private void Update()
@@ -64,8 +69,8 @@ public class GameManager : MonoBehaviour
 
         _timeLeft = 0f;
         State = GameState.Finishing;
-        Spawner?.SpawnFinish();
-        _bossAnimationController = Spawner?.BossAnimationController;
+        _spawner?.SpawnFinish();
+        _bossAnimationController = _spawner?.BossAnimationController;
     }
     
     private bool TryStartRun()
@@ -76,8 +81,8 @@ public class GameManager : MonoBehaviour
         if (InputHelper.WasTap())
         {
             State = GameState.Running;
-            PlayerAnimationController.PlayRun();
-            TapToStartText?.SetActive(false);
+            _playerAnimationController.PlayRun();
+            _tapToStartText?.SetActive(false);
         }
         
         return true;
@@ -86,8 +91,8 @@ public class GameManager : MonoBehaviour
     public void AddPower(int amount)
     {
         _power += amount;
-        if (PowerText != null)
-            PowerText.text = $"POWER: <color=blue>{_power}</color>";
+        if (_powerText != null)
+            _powerText.text = $"POWER: <color=blue>{_power}</color>";
     }
     
     public void StartBossFight()
@@ -95,11 +100,11 @@ public class GameManager : MonoBehaviour
         if (State != GameState.Finishing)
             return;
         
-        if (Spawner.CurrentBossTargetPos == null)
+        if (_spawner.CurrentBossTargetPos == null)
             return;
 
         State = GameState.BossFight;
-        PlayerBossFight.BeginFight(Spawner.CurrentBossTargetPos);
+        _playerBossFight.BeginFight(_spawner.CurrentBossTargetPos);
     }
 
     public void ResolveBossFight()
@@ -107,7 +112,7 @@ public class GameManager : MonoBehaviour
         if (State != GameState.BossFight)
             return;
 
-        if (_power >= BossHP)
+        if (_power >= _bossHP)
             WinSequence();
         else
             LoseToBoss();
@@ -119,17 +124,17 @@ public class GameManager : MonoBehaviour
             return;
 
         State = GameState.Lose;
-        PlayerAnimationController.PlayLose();
+        _playerAnimationController.PlayLose();
         _bossAnimationController?.PlayDance();
 
-        if (LoseOverlay != null)
-            LoseOverlay.SetActive(true);
+        if (_loseOverlay != null)
+            _loseOverlay.SetActive(true);
     }
 
     private void LoseToBoss()
     {
         State = GameState.Lose;
-        PlayerAnimationController.PlayIdle();
+        _playerAnimationController.PlayIdle();
 
         if (_bossAnimationController != null)
             _bossAnimationController.PlayAttack(onHit: ShowLose);
@@ -139,22 +144,22 @@ public class GameManager : MonoBehaviour
 
     private void ShowLose()
     {
-        PlayerAnimationController.PlayLose();
+        _playerAnimationController.PlayLose();
 
-        if (LoseOverlay != null)
-            LoseOverlay.SetActive(true);
+        if (_loseOverlay != null)
+            _loseOverlay.SetActive(true);
     }
 
     private void WinSequence()
     {
         State = GameState.Win;
 
-        PlayerAnimationController.PlayAttack(onComplete: () =>
+        _playerAnimationController.PlayAttack(onComplete: () =>
         {
             BossHealth = 0;
-            WinOverlay?.SetActive(true);
+            _winOverlay?.SetActive(true);
             _bossAnimationController?.PlayLose();
-            PlayerAnimationController.PlayDance();
+            _playerAnimationController.PlayDance();
         });
     }
     

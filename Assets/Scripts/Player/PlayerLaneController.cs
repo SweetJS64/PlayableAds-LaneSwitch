@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerLaneController : MonoBehaviour
 {
     [Header("Lane Settings")]
-    [SerializeField] private MovementConfigSO MovementConfig;
-    [SerializeField] private float LaneChangeSpeed = 6f;
-    [SerializeField] private float TiltAngle = 30f;
-    [SerializeField] private float TiltSpeed = 10f;
+    [SerializeField] private MovementConfigSO _movementConfig;
+    [SerializeField] private float _laneChangeSpeed = 4f;
+    [SerializeField] private float _tiltAngle = 30f;
+    [SerializeField] private float _tiltSpeed = 10f;
 
     private int _laneIndex = 1;
     private Vector3 _targetPos;
@@ -48,20 +48,20 @@ public class PlayerLaneController : MonoBehaviour
             _laneIndex = Mathf.Clamp(_laneIndex, 0, 2);
 
             SetTargetLane(_laneIndex);
-            _targetTilt = isTapLeft ? -TiltAngle : TiltAngle;
+            _targetTilt = isTapLeft ? -_tiltAngle : _tiltAngle;
         }
 
         if (Mathf.Abs(transform.position.x - _targetPos.x) < 0.5f)
             _targetTilt = 0f;
 
-        transform.position = Vector3.Lerp(transform.position, _targetPos, LaneChangeSpeed * Time.deltaTime);
-        var newY = Mathf.LerpAngle(transform.eulerAngles.y, _targetTilt, TiltSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, _targetPos, _laneChangeSpeed * Time.deltaTime);
+        var newY = Mathf.LerpAngle(transform.eulerAngles.y, _targetTilt, _tiltSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0f, newY, 0f);
     }
 
     private void SetTargetLane(int lane)
     {
-        var targetX = (lane - 1) * MovementConfig.LaneOffset;
+        var targetX = (lane - 1) * _movementConfig.LaneOffset;
         _targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
     }
 

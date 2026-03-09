@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerBossFight : MonoBehaviour
 {
-    [SerializeField] private float MoveSpeed = 5f;
-    [SerializeField] private float RotationSpeed = 10f;
-    [SerializeField] private float ReachDistance = 0.1f;
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _rotationSpeed = 10f;
+    [SerializeField] private float _reachDistance = 0.1f;
 
     private Transform _target;
     private bool _isActive;
@@ -32,18 +32,19 @@ public class PlayerBossFight : MonoBehaviour
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
-                RotationSpeed * Time.deltaTime
+                _rotationSpeed * Time.deltaTime
             );
         }
 
         transform.position = Vector3.MoveTowards(
             transform.position,
             _target.position,
-            MoveSpeed * Time.deltaTime
+            _moveSpeed * Time.deltaTime
         );
         
-        if (Vector3.Distance(transform.position, _target.position) <= ReachDistance)
+        if (Vector3.Distance(transform.position, _target.position) <= _reachDistance)
         {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             _isActive = false;
             GameManager.Instance.ResolveBossFight();
         }

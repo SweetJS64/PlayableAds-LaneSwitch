@@ -3,17 +3,17 @@ using TMPro;
 
 public class BossHealthText : MonoBehaviour
 {
-    [SerializeField] private TMP_Text Text;
+    [SerializeField] private TMP_Text _healthText;
 
-    [SerializeField] private float CountdownSpeed = 150f;
+    [SerializeField] private float _countdownSpeed = 150f;
 
     private float _displayedHealth;
     private bool _initialized;
 
     private void Awake()
     {
-        if (Text == null)
-            Text = GetComponent<TMP_Text>();
+        if (_healthText == null)
+            _healthText = GetComponent<TMP_Text>();
     }
 
     private void Update()
@@ -33,16 +33,16 @@ public class BossHealthText : MonoBehaviour
         if (Mathf.Approximately(_displayedHealth, target))
             return;
 
-        _displayedHealth = Mathf.MoveTowards(_displayedHealth, target, CountdownSpeed * Time.deltaTime);
+        _displayedHealth = Mathf.MoveTowards(_displayedHealth, target, _countdownSpeed * Time.deltaTime);
         UpdateText();
     }
 
     private void UpdateText()
     {
-        if (Text == null)
+        if (_healthText == null)
             return;
 
-        Text.text = $"HEALTH: {Mathf.RoundToInt(_displayedHealth)}";
+        _healthText.text = $"HEALTH: {Mathf.RoundToInt(_displayedHealth)}";
     }
 
 }

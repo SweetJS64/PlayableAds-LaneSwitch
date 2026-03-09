@@ -3,18 +3,18 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private MovementConfigSO MovementConfig;
+    [SerializeField] private MovementConfigSO _movementConfig;
 
     [Header("Prefabs")]
-    [SerializeField] private ObjectPool ObstaclePool;
-    [SerializeField] private ObjectPool BuffPowerPool;
-    [SerializeField] private ObjectPool DebuffPowerPool;
-    [SerializeField] private GameObject FinishPrefab;
+    [SerializeField] private ObjectPool _obstaclePool;
+    [SerializeField] private ObjectPool _buffPowerPool;
+    [SerializeField] private ObjectPool _debuffPowerPool;
+    [SerializeField] private GameObject _finishPrefab;
 
     [Header("Spawn settings")]
-    [SerializeField] private float SpawnY = 0.5f;
-    [SerializeField] private float SpawnZ = 25f;
-    [SerializeField] private float Interval = 0.9f;
+    [SerializeField] private float _spawnY = 0.5f;
+    [SerializeField] private float _spawnZ = 25f;
+    [SerializeField] private float _interval = 0.9f;
 
     private float _timer;
     private float[] _lanes;
@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
-        var offset = MovementConfig.LaneOffset;
+        var offset = _movementConfig.LaneOffset;
         _lanes = new[] { -offset, 0f, offset };
     }
 
@@ -42,18 +42,18 @@ public class Spawner : MonoBehaviour
         if (_timer > 0f)
             return;
         
-        _timer = Interval;
+        _timer = _interval;
         SpawnRow();
     }
 
     public void PreSpawnRows(int count)
     {
-        var rowSpacing = MovementConfig.MoveSpeed * Interval;
+        var rowSpacing = _movementConfig.MoveSpeed * _interval;
         for (var i = 1; i <= count; i++)
-            SpawnRowAt(SpawnZ - rowSpacing * i);
+            SpawnRowAt(_spawnZ - rowSpacing * i);
     }
 
-    private void SpawnRow() => SpawnRowAt(SpawnZ);
+    private void SpawnRow() => SpawnRowAt(_spawnZ);
 
     private void SpawnRowAt(float z)
     {
@@ -69,22 +69,22 @@ public class Spawner : MonoBehaviour
         var obstacleLane = (buffLane + Random.Range(1, 3)) % 3;
         var debuffLane = 3 - buffLane - obstacleLane;
 
-        SpawnFromPool(ObstaclePool, obstacleLane, z);
-        SpawnFromPool(BuffPowerPool, buffLane, z);
-        SpawnFromPool(DebuffPowerPool, debuffLane, z);
+        SpawnFromPool(_obstaclePool, obstacleLane, z);
+        SpawnFromPool(_buffPowerPool, buffLane, z);
+        SpawnFromPool(_debuffPowerPool, debuffLane, z);
     }
 
     private void SpawnFromPool(ObjectPool pool, int laneIndex, float z)
     {
         var obj = pool.Get();
-        obj.transform.position = new Vector3(_lanes[laneIndex], SpawnY, z);
+        obj.transform.position = new Vector3(_lanes[laneIndex], _spawnY, z);
         obj.transform.rotation = Quaternion.identity;
     }
     
     public void SpawnFinish()
     {
-        var pos = new Vector3(0f, 0f, SpawnZ);
-        var root = Instantiate(FinishPrefab, pos, Quaternion.identity);
+        var pos = new Vector3(0f, 0f, _spawnZ);
+        var root = Instantiate(_finishPrefab, pos, Quaternion.identity);
         var targetMarker = root.GetComponentInChildren<BossTargetPos>();
         CurrentBossTargetPos = targetMarker != null ? targetMarker.transform : null;
         BossAnimationController = root.GetComponentInChildren<BossAnimationController>();

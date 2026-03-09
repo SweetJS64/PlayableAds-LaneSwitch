@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MoveToPlayer : MonoBehaviour
 {
-    [SerializeField] private MovementConfigSO MovementConfig;
+    [SerializeField] private MovementConfigSO _movementConfig;
 
     private PooledObject _pooledObject;
     
@@ -20,10 +20,10 @@ public class MoveToPlayer : MonoBehaviour
             GameManager.Instance.State != GameState.Finishing)
             return;
         
-        transform.Translate(Vector3.back * MovementConfig.MoveSpeed * Time.deltaTime, 
+        transform.Translate(Vector3.back * _movementConfig.MoveSpeed * Time.deltaTime, 
             Space.World);
 
-        if (transform.position.z <= MovementConfig.DespawnZ)
+        if (transform.position.z <= _movementConfig.DespawnZ)
             _pooledObject.ReturnToPool();
     }
 }

@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private GameObject Prefab;
-    [SerializeField] private int InitialSize = 10;
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private int _initialSize = 10;
 
     private readonly Queue<PooledObject> _pool = new();
 
     private void Awake()
     {
-        for (var i = 0; i < InitialSize; i++)
+        for (var i = 0; i < _initialSize; i++)
         {
             CreateObject();
         }
@@ -18,7 +18,7 @@ public class ObjectPool : MonoBehaviour
 
     private PooledObject CreateObject()
     {
-        var instance = Instantiate(Prefab, transform);
+        var instance = Instantiate(prefab, transform);
         instance.SetActive(false);
 
         var pooledObject = instance.GetComponent<PooledObject>();

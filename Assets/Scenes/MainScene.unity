@@ -272,15 +272,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd86d520be9019c45925b0cef1175f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunDuration: 10
-  PowerText: {fileID: 1574182689}
-  WinOverlay: {fileID: 1307049832}
-  LoseOverlay: {fileID: 1789488980}
-  Spawner: {fileID: 2093967198}
-  PlayerBossFight: {fileID: 2097314795}
-  BossHP: 120
-  PlayerAnimationController: {fileID: 2097314794}
-  TapToStartText: {fileID: 877767931}
+  _runDuration: 10
+  _bossHP: 100
+  _powerText: {fileID: 1574182689}
+  _winOverlay: {fileID: 1307049832}
+  _loseOverlay: {fileID: 1789488980}
+  _tapToStartText: {fileID: 877767931}
+  _spawner: {fileID: 2093967198}
+  _playerBossFight: {fileID: 2097314795}
+  _playerAnimationController: {fileID: 2097314794}
 --- !u!1 &241072132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,8 +1016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fef5c2d49afe540ad7c20c706f0317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 8998155906228632513, guid: 63b1baab085c9114c9127b1cd2d8b6ac, type: 3}
-  InitialSize: 7
+  prefab: {fileID: 8998155906228632513, guid: 63b1baab085c9114c9127b1cd2d8b6ac, type: 3}
+  _initialSize: 10
 --- !u!1 &802984306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,8 +2241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fef5c2d49afe540ad7c20c706f0317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 509663548156298014, guid: 60e0b9fda10b2cc4c81ae076c2f4f50a, type: 3}
-  InitialSize: 7
+  prefab: {fileID: 509663548156298014, guid: 60e0b9fda10b2cc4c81ae076c2f4f50a, type: 3}
+  _initialSize: 10
 --- !u!1 &1561545846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2457,8 +2457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fef5c2d49afe540ad7c20c706f0317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 8998155906228632513, guid: c13eab27bbfb46f47be8500fa22b4590, type: 3}
-  InitialSize: 10
+  prefab: {fileID: 8998155906228632513, guid: c13eab27bbfb46f47be8500fa22b4590, type: 3}
+  _initialSize: 10
 --- !u!1 &1789488980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,14 +2717,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8730fa72a41db04797eb3447dd42b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementConfig: {fileID: 11400000, guid: 9f30aab6cdbf3f24c8e8107ce9b99693, type: 2}
-  ObstaclePool: {fileID: 1518400103}
-  BuffPowerPool: {fileID: 769602862}
-  DebuffPowerPool: {fileID: 1690533925}
-  FinishPrefab: {fileID: 7515285073160691873, guid: ed18fa5febb244448ad00a95895786c0, type: 3}
-  SpawnY: 0.5
-  SpawnZ: 30
-  Interval: 0.9
+  _movementConfig: {fileID: 11400000, guid: 9f30aab6cdbf3f24c8e8107ce9b99693, type: 2}
+  _obstaclePool: {fileID: 1518400103}
+  _buffPowerPool: {fileID: 769602862}
+  _debuffPowerPool: {fileID: 1690533925}
+  _finishPrefab: {fileID: 7515285073160691873, guid: ed18fa5febb244448ad00a95895786c0, type: 3}
+  _spawnY: 0.5
+  _spawnZ: 25
+  _interval: 0.9
 --- !u!4 &2093967199
 Transform:
   m_ObjectHideFlags: 0
@@ -2775,9 +2775,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36f4f243a1dcee4db839f03aa7b2da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 5
-  RotationSpeed: 10
-  ReachDistance: 0.1
+  _moveSpeed: 5
+  _rotationSpeed: 10
+  _reachDistance: 0.1
 --- !u!114 &2097314796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2790,10 +2790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8f5f0a11acfbe44b1fcd1a954204f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementConfig: {fileID: 11400000, guid: 9f30aab6cdbf3f24c8e8107ce9b99693, type: 2}
-  LaneChangeSpeed: 3
-  TiltAngle: 20
-  TiltSpeed: 10
+  _movementConfig: {fileID: 11400000, guid: 9f30aab6cdbf3f24c8e8107ce9b99693, type: 2}
+  _laneChangeSpeed: 4
+  _tiltAngle: 30
+  _tiltSpeed: 10
 --- !u!54 &2097314797
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2882,15 +2882,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3314275008725157780, guid: 0c497007ceb582947b28ba5bc6c817f3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3314275008725157780, guid: 0c497007ceb582947b28ba5bc6c817f3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3314275008725157780, guid: 0c497007ceb582947b28ba5bc6c817f3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3314275008725157780, guid: 0c497007ceb582947b28ba5bc6c817f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
