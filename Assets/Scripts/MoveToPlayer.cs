@@ -16,7 +16,8 @@ public class MoveToPlayer : MonoBehaviour
         if (GameManager.Instance == null)
             return;
 
-        if (GameManager.Instance.State == GameState.Win ||
+        if (GameManager.Instance.State == GameState.WaitingForTap ||
+            GameManager.Instance.State == GameState.Win ||
             GameManager.Instance.State == GameState.Lose ||
             GameManager.Instance.State == GameState.BossFight)
             return;

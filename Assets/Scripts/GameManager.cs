@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
         AddPower(0);
     }
 
+    private void Start()
+    {
+        Spawner?.PreSpawnRows(3);
+    }
+
     private void Update()
     {
         if (State == GameState.Win || State == GameState.Lose)

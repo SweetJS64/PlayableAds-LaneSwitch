@@ -272,13 +272,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd86d520be9019c45925b0cef1175f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunDuration: 30
+  RunDuration: 10
   PowerText: {fileID: 1574182689}
   WinOverlay: {fileID: 1307049832}
   LoseOverlay: {fileID: 1789488980}
   Spawner: {fileID: 2093967198}
   PlayerBossFight: {fileID: 2097314795}
-  BossHP: 30
+  BossHP: 120
   PlayerAnimationController: {fileID: 2097314794}
   TapToStartText: {fileID: 877767931}
 --- !u!1 &241072132
@@ -2121,12 +2121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8730fa72a41db04797eb3447dd42b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementConfig: {fileID: 11400000, guid: 9f30aab6cdbf3f24c8e8107ce9b99693, type: 2}
   ObstaclePool: {fileID: 1518400103}
   BuffPowerPool: {fileID: 769602862}
   DebuffPowerPool: {fileID: 1690533925}
   FinishPrefab: {fileID: 7515285073160691873, guid: ed18fa5febb244448ad00a95895786c0, type: 3}
   SpawnY: 0.5
-  SpawnZ: 25
+  SpawnZ: 30
   Interval: 0.9
 --- !u!4 &2093967199
 Transform:
@@ -2351,10 +2352,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 913595862}
-  - {fileID: 2093967199}
-  - {fileID: 32546520}
-  - {fileID: 9180694918221041169}
   - {fileID: 16358241}
   - {fileID: 1313241752}
+  - {fileID: 32546520}
+  - {fileID: 2093967199}
   - {fileID: 241072133}
+  - {fileID: 913595862}
+  - {fileID: 9180694918221041169}

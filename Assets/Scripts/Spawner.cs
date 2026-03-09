@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [Header("Movement")]
+    [SerializeField] private MovementConfigSO MovementConfig;
+
     [Header("Prefabs")]
     [SerializeField] private ObjectPool ObstaclePool;
     [SerializeField] private ObjectPool BuffPowerPool;
@@ -37,7 +40,16 @@ public class Spawner : MonoBehaviour
         SpawnRow();
     }
 
-    private void SpawnRow()
+    public void PreSpawnRows(int count)
+    {
+        var rowSpacing = MovementConfig.MoveSpeed * Interval;
+        for (var i = 1; i <= count; i++)
+            SpawnRowAt(SpawnZ - rowSpacing * i);
+    }
+
+    private void SpawnRow() => SpawnRowAt(SpawnZ);
+
+    private void SpawnRowAt(float z)
     {
         int buffLane;
 
@@ -51,15 +63,15 @@ public class Spawner : MonoBehaviour
         var obstacleLane = (buffLane + Random.Range(1, 3)) % 3;
         var debuffLane = 3 - buffLane - obstacleLane;
 
-        SpawnFromPool(ObstaclePool, obstacleLane);
-        SpawnFromPool(BuffPowerPool, buffLane);
-        SpawnFromPool(DebuffPowerPool, debuffLane);
+        SpawnFromPool(ObstaclePool, obstacleLane, z);
+        SpawnFromPool(BuffPowerPool, buffLane, z);
+        SpawnFromPool(DebuffPowerPool, debuffLane, z);
     }
 
-    private void SpawnFromPool(ObjectPool pool, int laneIndex)
+    private void SpawnFromPool(ObjectPool pool, int laneIndex, float z)
     {
         var obj = pool.Get();
-        obj.transform.position = new Vector3(_lanes[laneIndex], SpawnY, SpawnZ);
+        obj.transform.position = new Vector3(_lanes[laneIndex], SpawnY, z);
         obj.transform.rotation = Quaternion.identity;
     }
     
