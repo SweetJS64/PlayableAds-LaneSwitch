@@ -4,6 +4,12 @@ public static class InputHelper
 {
     private static bool _touchWasUsed;
 
+    [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
+    {
+        _touchWasUsed = false;
+    }
+
     public static bool WasTap(out float screenX)
     {
         if (Input.touchCount > 0)

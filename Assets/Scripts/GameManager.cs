@@ -26,9 +26,8 @@ public class GameManager : MonoBehaviour
     
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; }
-    
-    public int BossHealth => BossHP;
-    
+    public int BossHealth { get; private set; }
+
     private int _power;
     private float _timeLeft;
     private BossAnimationController _bossAnimationController;
@@ -43,6 +42,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         State = GameState.WaitingForTap;
         _timeLeft = RunDuration;
+        BossHealth = BossHP;
         AddPower(0);
     }
 
@@ -158,9 +158,10 @@ public class GameManager : MonoBehaviour
     private void WinSequence()
     {
         State = GameState.Win;
-    
+
         PlayerAnimationController.PlayAttack(onComplete: () =>
         {
+            BossHealth = 0;
             WinOverlay?.SetActive(true);
             _bossAnimationController?.PlayLose();
             PlayerAnimationController.PlayDance();

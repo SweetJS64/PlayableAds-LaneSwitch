@@ -10,6 +10,8 @@ public abstract class AnimationControllerBase : MonoBehaviour
     {
         Animator.SetTrigger(triggerHash);
 
+        yield return null;
+
         var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length);
 
