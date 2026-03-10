@@ -4,15 +4,15 @@ using System.Collections;
 
 public abstract class AnimationControllerBase : MonoBehaviour
 {
-    [SerializeField] protected Animator Animator;
+    [SerializeField] protected Animator _animator;
 
     protected IEnumerator PlayAndWait(int triggerHash, Action onComplete)
     {
-        Animator.SetTrigger(triggerHash);
+        _animator.SetTrigger(triggerHash);
 
         yield return null;
 
-        var stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+        var stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length);
 
         onComplete?.Invoke();

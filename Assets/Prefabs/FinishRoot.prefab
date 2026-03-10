@@ -205,38 +205,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6471560940768226307}
     m_Modifications:
-    - target: {fileID: 262306723395352441, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: _healthText
-      value: 
-      objectReference: {fileID: 2828350269356765325}
-    - target: {fileID: 1777475020493456124, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 5593604213018129494, guid: c0cb533eac622f94db47ee179b8c3e1a, type: 2}
-    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: m_fontSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: c0cb533eac622f94db47ee179b8c3e1a, type: 2}
-    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: m_fontStyle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 5593604213018129494, guid: c0cb533eac622f94db47ee179b8c3e1a, type: 2}
-    - target: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8193928485623014179, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
       propertyPath: m_Name
       value: BossBot
@@ -286,17 +254,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
---- !u!114 &2828350269356765325 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3030234198253732126, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}
-  m_PrefabInstance: {fileID: 958664632724386195}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8624571685304502282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8862378351029123481, guid: d88bde20b9114ca45948eef43fd22c39, type: 3}

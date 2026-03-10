@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -83,6 +84,13 @@ public class Spawner : MonoBehaviour
     
     public void SpawnFinish()
     {
+        StartCoroutine(SpawnFinishDelayed());
+    }
+
+    private IEnumerator SpawnFinishDelayed()
+    {
+        yield return new WaitForSeconds(_interval);
+
         var pos = new Vector3(0f, 0f, _spawnZ);
         var root = Instantiate(_finishPrefab, pos, Quaternion.identity);
         var targetMarker = root.GetComponentInChildren<BossTargetPos>();

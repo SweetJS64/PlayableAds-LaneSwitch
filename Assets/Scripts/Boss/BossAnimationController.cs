@@ -12,8 +12,8 @@ public class BossAnimationController : AnimationControllerBase
     public void PlayAttack(Action onHit = null)
     {
         _onHitCallback = onHit;
-        Animator.ResetTrigger(LoseHash);
-        Animator.SetTrigger(AttackHash);
+        _animator.ResetTrigger(LoseHash);
+        _animator.SetTrigger(AttackHash);
     }
 
     private void OnHitMoment()
@@ -24,14 +24,14 @@ public class BossAnimationController : AnimationControllerBase
 
     public void PlayDance()
     {
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(LoseHash);
-        Animator.SetTrigger(DanceHash);
+        _animator.ResetTrigger(AttackHash);
+        _animator.ResetTrigger(LoseHash);
+        _animator.SetTrigger(DanceHash);
     }
 
     public void PlayLose(Action onComplete = null)
     {
-        Animator.ResetTrigger(AttackHash);
+        _animator.ResetTrigger(AttackHash);
         StartCoroutine(PlayAndWait(LoseHash, onComplete));
     }
 }

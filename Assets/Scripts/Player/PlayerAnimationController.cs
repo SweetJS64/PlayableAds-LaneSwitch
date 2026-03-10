@@ -13,25 +13,25 @@ public class PlayerAnimationController : AnimationControllerBase
     public void PlayRun()
     {
         ResetAllTriggers();
-        Animator.SetTrigger(RunHash);
+        _animator.SetTrigger(RunHash);
     }
     
     public void PlayLose()
     {
         ResetAllTriggers();
-        Animator.SetTrigger(LoseHash);
+        _animator.SetTrigger(LoseHash);
     }
 
     public void PlayDance()
     {
         ResetAllTriggers();
-        Animator.SetTrigger(DanceHash);
+        _animator.SetTrigger(DanceHash);
     }
     
     public void PlayIdle()
     {
         ResetAllTriggers();
-        Animator.SetTrigger(IdleHash);
+        _animator.SetTrigger(IdleHash);
     }
     
     public void PlayAttack(Action onComplete = null)
@@ -42,10 +42,10 @@ public class PlayerAnimationController : AnimationControllerBase
 
     private void ResetAllTriggers()
     {
-        Animator.ResetTrigger(RunHash);
-        Animator.ResetTrigger(AttackHash);
-        Animator.ResetTrigger(LoseHash);
-        Animator.ResetTrigger(DanceHash);
-        Animator.ResetTrigger(IdleHash);
+        _animator.ResetTrigger(RunHash);
+        _animator.ResetTrigger(AttackHash);
+        _animator.ResetTrigger(LoseHash);
+        _animator.ResetTrigger(DanceHash);
+        _animator.ResetTrigger(IdleHash);
     }
 }
